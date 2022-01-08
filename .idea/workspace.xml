@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f50dc64f-5811-4e10-933b-be25801f07b2" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="1yiUmPLHduPbQd5Vzyo9tb38nnY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager" selected="Cypress.Top menu of homepage">
+    <configuration name="All Tests in integration" type="CypressConfigurationType" factoryName="Cypress" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="envs">
+        <map />
+      </option>
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="workingDirectory" value="C:\Users\szoln\WebstormProjects\Cypress-Sandbox" />
+      <option name="textRange" />
+      <option name="allNames" />
+      <option name="specsDir" value="$PROJECT_DIR$/cypress/integration" />
+      <option name="specFile" />
+      <option name="testName" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <option name="envs">
+        <map />
+      </option>
+      <option name="additionalParams" value="" />
+      <option name="passParentEnvs" value="true" />
+      <option name="nodeJsRef" value="project" />
+      <option name="npmRef" value="Project" />
+      <option name="kind" value="DIRECTORY" />
+      <option name="interactive" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Top menu of homepage" type="CypressConfigurationType" factoryName="Cypress" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="envs">
+        <map />
+      </option>
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="workingDirectory" value="C:\Users\szoln\WebstormProjects\Cypress-Sandbox" />
+      <option name="textRange" />
+      <option name="allNames">
+        <list>
+          <option value="Top menu of homepage" />
+        </list>
+      </option>
+      <option name="specsDir" />
+      <option name="specFile" value="$PROJECT_DIR$/cypress/integration/Prestashop/homepage.spec.js" />
+      <option name="testName" value="Top menu of homepage" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <option name="envs">
+        <map />
+      </option>
+      <option name="additionalParams" value="" />
+      <option name="passParentEnvs" value="true" />
+      <option name="nodeJsRef" value="project" />
+      <option name="npmRef" value="Project" />
+      <option name="kind" value="TEST" />
+      <option name="interactive" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="homepage.spec.js" type="CypressConfigurationType" factoryName="Cypress" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="envs">
+        <map />
+      </option>
+      <option name="passParentEnvs" value="true" />
+      <option name="programParameters" value="" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="workingDirectory" value="C:\Users\szoln\WebstormProjects\Cypress-Sandbox" />
+      <option name="textRange" />
+      <option name="allNames" />
+      <option name="specsDir" />
+      <option name="specFile" value="$PROJECT_DIR$/cypress/integration/Prestashop/homepage.spec.js" />
+      <option name="testName" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <option name="envs">
+        <map />
+      </option>
+      <option name="additionalParams" value="" />
+      <option name="passParentEnvs" value="true" />
+      <option name="nodeJsRef" value="project" />
+      <option name="npmRef" value="Project" />
+      <option name="kind" value="SPEC" />
+      <option name="interactive" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="todo.spec.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/cypress/integration/1-getting-started/todo.spec.js" working-dir="$PROJECT_DIR$/cypress/integration/1-getting-started">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Cypress.Top menu of homepage" />
+        <item itemvalue="Cypress.homepage.spec.js" />
+        <item itemvalue="Cypress.All Tests in integration" />
+        <item itemvalue="Node.js.todo.spec.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f50dc64f-5811-4e10-933b-be25801f07b2" name="Changes" comment="" />
+      <created>1632734060838</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1632734060838</updated>
+      <workItem from="1632734061939" duration="395000" />
+      <workItem from="1632735010412" duration="808000" />
+      <workItem from="1634476960507" duration="1033000" />
+      <workItem from="1634478463503" duration="759000" />
+      <workItem from="1634479237277" duration="9444000" />
+      <workItem from="1634769007472" duration="909000" />
+      <workItem from="1634887639148" duration="1680000" />
+      <workItem from="1635000876767" duration="6531000" />
+      <workItem from="1635009068306" duration="2922000" />
+      <workItem from="1635098788364" duration="54000" />
+      <workItem from="1635099057340" duration="25000" />
+      <workItem from="1635099090318" duration="13000" />
+      <workItem from="1635099229161" duration="6000" />
+      <workItem from="1635099377680" duration="18000" />
+      <workItem from="1635099449418" duration="3000" />
+      <workItem from="1635099477572" duration="12000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

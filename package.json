@@ -1,0 +1,17 @@
+{
+  "name": "cypress-sandbox",
+  "version": "1.0.0",
+  "description": "prestashop e2e tests",
+  "main": "package.json",
+  "dependencies": {
+    "cypress": "^8.4.1",
+    "cypress-real-events": "^1.5.1",
+    "faker": "^6.6.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sabina Zolnowska",
+  "license": "ISC"
+}
