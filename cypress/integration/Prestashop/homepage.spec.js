@@ -3,40 +3,46 @@
 
 //const { should } = require("chai");
 
-describe('Top menu of homepage', () =>  {
+describe('Homepage:', () =>  {
     beforeEach(() => {
         cy.visit('http://127.0.0.1/prestashop/gb/')
     })
       
-        it('displays button Contact Us', () => {
+        it('Button "Contact Us" is displayed. User clicks this button.', () => {
             cy.contains('[id="contact-link"] a', 'Contact us')
                 .click();
             cy.get('textarea').as('messageInput')
             cy.get('@messageInput')
                 .invoke('attr', 'placeholder')
-                //Why I can't type .cointains(''How can we help?'') or use alias in cy.contains?
+                //Why I can't type cy.cointains('@messageInput', 'How can we help?') to use alias?
                 .should('contain', 'How can we help?')
             cy.get('@messageInput')
                 .click();
+            cy.url()
+                .should('include', 'contact-us'); 
         })
 
-        it('displays button with dropdown to change language on the website to English or Polish', () => {
+        it('Button "English GB" to open drop-down to change language is displayed. User changes language of the website to Polish by using this dropdown.', () => {
             //English GB is default language and on dropdown are displayed Polski and English GB
             // user change language to English GB
+            cy.url()
+                .should('include', 'gb');
             cy.get('[class="hidden-sm-down btn-unstyle"] span').as('languageBtn');
             cy.get('@languageBtn')
                 .should('have.text', 'English GB')
                 .and('be.visible')
                 .click();
-            cy.get('[class="dropdown-menu hidden-sm-down"]>li>a').first().as('firstLanguagedropdown');
+            cy.get('[class="dropdown-menu hidden-sm-down"] a').first().as('firstLanguagedropdown');
             cy.get('@firstLanguagedropdown')
                 .should('have.text', 'Polski')
                 .and('be.visible');
-            cy.get('[class="dropdown-menu hidden-sm-down"]>li>a').eq(1).as('secondLanguagedropdown');
+            cy.get('[class="dropdown-menu hidden-sm-down"] a').eq(1).as('secondLanguagedropdown');
             cy.get('@secondLanguagedropdown')
                 .should('have.text', 'English GB')
                 .and('be.visible')
                 .click();
+            cy.url()
+                .should('include', 'gb');
             //user change lanugage to Polski
             cy.get('@languageBtn') 
                 .should('have.text', 'English GB')
@@ -59,39 +65,44 @@ describe('Top menu of homepage', () =>  {
             cy.get('@secondLanguagedropdown')
                 .should('have.text', 'English GB')
                 .and('be.visible');
+            cy.url()
+                .should('include', 'pl'); 
         })
 
-        it('displays button Sign in', () => {
+        it('Button "Sign in" is displayed. User clicks this button.', () => {
             cy.contains('[title="Log in to your customer account"] span', 'Sign in')
                 .should('be.visible')
                 .click();
             cy.contains('[class="no-account"] a', 'No account? Create one here')
                 .should('be.visible')
                 .click();
+            cy.url()
+                .should('include', 'create_account');
         })
 
-        it('displays button "Basket(0)" which is inactive and doesnt have product inside', () => {
+        it('Button "Basket(0)" is displayed. This button is inactive and it doesnt have any product inside.', () => {
             cy.get('.cart-preview')
                 .should('be.visible')
                 .and('have.class', 'inactive');
-            cy.contains('div[class="header"] > span[class="hidden-sm-down"]', 'Basket')
+            cy.contains('div[class="header"] span[class="hidden-sm-down"]', 'Basket')
                 .should('be.visible');
             cy.contains('.cart-products-count', '(0)')
                 .should('be.visible');
         })
 
-    it('displays button "CLOTHES", after hover it displays drop-down with buttons "MEN" and "WOMEN"', () => {
-        cy.get('#category-3').realHover()
-        cy.contains('#category-5 > a', 'Women')
+    it('Button "CLOTHES" is displayed. User mouse-over this button and drop-down with buttons "MEN" and "WOMEN" buttones are displayed. User clicks "MEN" button.', () => {
+        cy.get('#category-3')
+        .realHover()
+        cy.contains('[id="category-5"] a', 'Women')
             .should('be.visible');
-        cy.contains('#category-4 > a', 'Men')
+        cy.contains('[id="category-4"] a', 'Men')
             .should('be.visible')
             .realClick();
         cy.contains('h1', 'Men')
             .should('be.visible');
     })
 
-    it('displays search for products which after input text "sweater" and press button with loupe, it will diplay product including "sweater" in the name', () => {
+    it('Inputfield "Search our catalog" is displayed. User enters text "sweater" in this inputfield and clicks button with image of loupe.', () => {
         cy.get('input[aria-label="Search"]')
             .should('be.visible')
             .and('have.attr', 'placeholder', 'Search our catalog')
@@ -99,72 +110,81 @@ describe('Top menu of homepage', () =>  {
         cy.get('button[type="submit"]')
             .should('be.visible')
             .realClick();
-        cy.contains('h2[class="h3 product-title"] > a', 'Hummingbird printed sweater')
+        cy.contains('[data-id-product="2"] a', 'Hummingbird printed sweater')
             .should('be.visible');
-        cy.contains('span[class="regular-price"]', '£43.08')
+        cy.contains('[class="regular-price"]', '£43.08')
             .should('be.visible');
-        cy.contains('span[class="price"]', '£34.46')
+        cy.contains('[class="price"]', '£34.46')
             .should('be.visible');
+        cy.url()
+            .should('include', 'search')
+            .and('include', 's=sweater');
     })
 
-    it('displays banner, user can click to check next and previous image on the banner', () => {
+    it('Banner is displayed. User clicks to check next and previous image on this banner.', () => {
         cy.get('[class="carousel-inner"]')
             .should('be.visible');
-        cy.contains('h2[class="display-1 text-uppercase"]', 'Sample 1')
+        cy.contains('[class="display-1 text-uppercase"]', 'Sample 1')
             .should('be.visible');
-        cy.get('[class="icon-prev hidden-xs"] > i')
+        cy.get('[class="icon-prev hidden-xs"] i')
             .should('be.visible')
             .realClick();
         cy.get('[class="carousel-inner"]')
             .should('be.visible');
-        cy.contains('h2[class="display-1 text-uppercase"]', 'Sample 3')
+        cy.contains('[class="display-1 text-uppercase"]', 'Sample 3')
             .should('be.visible');
-        cy.get('[class="icon-next"] > i')
+        cy.get('[class="icon-next"] i')
             .should('be.visible')
             .realClick();
         cy.get('[class="carousel-inner"]')
             .should('be.visible');
-        cy.contains('h2[class="display-1 text-uppercase"]', 'Sample 1')
-        .should('be.visible');
+        cy.contains('[class="display-1 text-uppercase"]', 'Sample 1')
+            .should('be.visible');
     })
 
-    it('displays list of popular products', () => {
+    it('List of popular products is displayed. User clicks product "Hummingbird printed t-shirt" of "white" colour.', () => {
         cy.contains('[class="h2 products-section-title text-uppercase"]', 'Popular Products')
             .should('be.visible');
-        cy.contains('[data-id-product=1] > div > div > h3 > a', 'Hummingbird printed t-shirt')
+        cy.contains('[data-id-product=1] a', 'Hummingbird printed t-shirt')
             .should('be.visible');
-        cy.contains('[data-id-product=1] > div > ul > li[class="product-flag discount"]', '-20%')
+        cy.contains('[data-id-product=1] [class="product-flag discount"]', '-20%')
             .should('be.visible');
-        cy.contains('[data-id-product=1] > div > ul > li[class="product-flag new"]', 'New')
-        .should('be.visible');
-        cy.contains('[data-id-product=1] > div > div > div > span[class="regular-price"]', '£28.68')
+        cy.contains('[data-id-product=1] [class="product-flag new"]', 'New')
             .should('be.visible');
-        cy.contains('[data-id-product=1] > div > div > div > span[class="price"]', '£22.94')
+        cy.contains('[data-id-product=1] [class="regular-price"]', '£28.68')
             .should('be.visible');
-        cy.get('[data-id-product=1] > div > div > h3')
+        cy.contains('[data-id-product=1] [class="price"]', '£22.94')
+            .should('be.visible');
+        cy.get('[data-id-product=1] h3')
             .realHover();
-        cy.get('[class="highlighted-informations hidden-sm-down"] > div > a[title="White"]')
+        cy.get('[class="highlighted-informations hidden-sm-down"] [title="White"]')
             .should('be.visible')
             .click();
         cy.contains('h1', 'Hummingbird printed t-shirt')
-        .should('be.visible');
+            .should('be.visible');
+        cy.url()
+            .should('include', 'hummingbird-printed-t-shirt')
+            .and('include', 'size-s')
+            .and('include', 'colour-white');
     })
 
-    it('displays button which allow to show all products available in this store', () => {
-        cy.contains('[class="all-product-link float-xs-left float-md-right h4"]', 'All products')
+    it('Button "All products" is displayed. User clicks this button.', () => {
+        cy.contains('[class="featured-products clearfix"] a', 'All products')
             .should('be.visible')
             .click();
         cy.contains('h1', 'Home')
             .should('be.visible');
+        cy.url()
+            .should('include', 'home');
     })
 
-    it('displays message, that entered e-mail is already registered into newsletter', () => {
-        cy.get('input[name="email"]').invoke('attr', 'placeholder')
+    it('Inputfield "Your email address" is displayed. User enters already used e-mail in this inputfield.', () => {
+        cy.get('[name="email"]').invoke('attr', 'placeholder')
             .should('contain', 'Your email address');
-        cy.get('input[name="email"]')
+        cy.get('[name="email"]')
             .should('be.visible')
             .type("test@test.com");
-        cy.get('input[value="Subscribe"]')
+        cy.get('[value="Subscribe"]')
             .should('be.visible')
             .click();
         cy.contains('[class="alert alert-danger block_newsletter_alert"]', 'This email address is already registered.')

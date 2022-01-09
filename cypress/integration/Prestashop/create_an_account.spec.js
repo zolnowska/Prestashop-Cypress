@@ -3,12 +3,12 @@
 
 
 
-describe('Create an account page', () =>  {
+describe('Create an account page:', () =>  {
     beforeEach(() => {
         cy.visit('http://127.0.0.1/prestashop/gb/login?create_account=1')
         })
 
-    it('user just clicks button "SAVE"', () => {
+    it('User just clicks button "SAVE".', () => {
         cy.contains('h1', 'Create an account')
             .should('be.visible');
         cy.get('[name="firstname"]')
@@ -19,7 +19,7 @@ describe('Create an account page', () =>  {
         cy.contains('[data-link-action="save-customer"]', 'Save')
             .should('be.visible')
             .click();  
-        cy.get('[class="custom-checkbox"] > label').eq(3)
+        cy.get('[class="custom-checkbox"] label').eq(3)
             .should('be.visible')
             .and('contain', 'I agree to the terms and conditions and the privacy policy');
         cy.get('[name="firstname"]')
@@ -31,15 +31,17 @@ describe('Create an account page', () =>  {
             .should('be.visible')
             .and('have.attr', 'placeholder', 'YYYY-MM-DD');  
         cy.contains('[data-link-action="save-customer"]', 'Save')
-            .should('be.visible');    
+            .should('be.visible');
+        cy.url()
+            .should('include', 'create_account');   
     })
 
-    it('user input all data, already used e-mail and click button "SAVE"', () => {
-        cy.contains('[class="register-form"] > p', 'Already have an account?')
+    it('User inputs all data with already used e-mail and user clicks button "SAVE".', () => {
+        cy.contains('[class="register-form"] p', 'Already have an account?')
             .should('be.visible');
-        cy.contains('[id="category-3"] > a[class="dropdown-item"]', 'Clothes')
+        cy.contains('[id="category-3"] [class="dropdown-item"]', 'Clothes')
             .should('be.visible');  
-        cy.get('[class="user-info"] > a > span[class="hidden-sm-down"]').as('signInBtn')
+        cy.get('[class="user-info"] [class="hidden-sm-down"]').as('signInBtn')
         cy.get('@signInBtn')
             .should('be.visible')
             .and('have.text','Sign in');
@@ -84,16 +86,17 @@ describe('Create an account page', () =>  {
             .and('be.visible');  
         cy.get('@saveBtn')
             .should('be.visible')
-            .and('contain', 'Save');    
+            .and('contain', 'Save');  
+        cy.url()
+            .should('include', 'create_account');   
     })
 
-    it.skip('user input all correct data and click button "SAVE"', () => {
-
-        cy.contains('[class="register-form"] > p', 'Already have an account?')
+    it.skip('User inputs all correct data and user clicks button "SAVE".', () => {
+        cy.contains('[class="register-form"] p', 'Already have an account?')
             .should('be.visible');
-        cy.contains('[id="category-3"] > a[class="dropdown-item"]', 'Clothes')
+        cy.contains('[id="category-3"][class="dropdown-item"]', 'Clothes')
             .should('be.visible');  
-        cy.get('[class="user-info"] > a > span[class="hidden-sm-down"]').as('signInBtn')
+        cy.get('[class="user-info"][class="hidden-sm-down"]').as('signInBtn')
         cy.get('@signInBtn')
             .should('be.visible')
             .and('have.text', 'Sign in');
