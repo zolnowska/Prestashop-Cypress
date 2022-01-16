@@ -28,3 +28,9 @@ node_modules
 cypress/videos
 cypress/screenshots
 cypress-real-events-develop
+
+# IDE - VSCode
+.vscode
+
+# VSCode config
+.idea

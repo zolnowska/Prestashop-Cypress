@@ -3,191 +3,221 @@
 
 //const { should } = require("chai");
 
-describe('Homepage:', () =>  {
-    beforeEach(() => {
-        cy.visit('http://127.0.0.1/prestashop/gb/')
-    })
-      
-        it('Button "Contact Us" is displayed. User clicks this button.', () => {
-            cy.contains('[id="contact-link"] a', 'Contact us')
-                .click();
-            cy.get('textarea').as('messageInput')
-            cy.get('@messageInput')
-                .invoke('attr', 'placeholder')
-                //Why I can't type cy.cointains('@messageInput', 'How can we help?') to use alias?
-                .should('contain', 'How can we help?')
-            cy.get('@messageInput')
-                .click();
-            cy.url()
-                .should('include', 'contact-us'); 
-        })
+describe("Homepage: ", () => {
+  beforeEach(() => {
+    cy.visit("/gb/");
+  });
 
-        it('Button "English GB" to open drop-down to change language is displayed. User changes language of the website to Polish by using this dropdown.', () => {
-            //English GB is default language and on dropdown are displayed Polski and English GB
-            // user change language to English GB
-            cy.url()
-                .should('include', 'gb');
-            cy.get('[class="hidden-sm-down btn-unstyle"] span').as('languageBtn');
-            cy.get('@languageBtn')
-                .should('have.text', 'English GB')
-                .and('be.visible')
-                .click();
-            cy.get('[class="dropdown-menu hidden-sm-down"] a').first().as('firstLanguagedropdown');
-            cy.get('@firstLanguagedropdown')
-                .should('have.text', 'Polski')
-                .and('be.visible');
-            cy.get('[class="dropdown-menu hidden-sm-down"] a').eq(1).as('secondLanguagedropdown');
-            cy.get('@secondLanguagedropdown')
-                .should('have.text', 'English GB')
-                .and('be.visible')
-                .click();
-            cy.url()
-                .should('include', 'gb');
-            //user change lanugage to Polski
-            cy.get('@languageBtn') 
-                .should('have.text', 'English GB')
-                .and('be.visible')
-                .click();
-            cy.get('@secondLanguagedropdown')
-                .should('have.text', 'English GB')
-                .and('be.visible');
-            cy.get('@firstLanguagedropdown')
-                .should('have.text', 'Polski')
-                .and('be.visible')
-                .click();
-            cy.get('@languageBtn')
-                .should('have.text', 'Polski')
-                .and('be.visible')
-                .click();
-            cy.get('@firstLanguagedropdown')
-                .should('have.text', 'Polski')
-                .and('be.visible');
-            cy.get('@secondLanguagedropdown')
-                .should('have.text', 'English GB')
-                .and('be.visible');
-            cy.url()
-                .should('include', 'pl'); 
-        })
+  it('User clicks button "Contact Us"', () => {
+    cy.contains('[id="contact-link"] a', "Contact us").click();
+    cy.get("textarea").as("messageInput");
+    cy.get("@messageInput")
+      .invoke("attr", "placeholder")
+      .should("contain", "How can we help?");
+    cy.get("@messageInput").click();
+    cy.url().should("include", "contact-us");
+  });
 
-        it('Button "Sign in" is displayed. User clicks this button.', () => {
-            cy.contains('[title="Log in to your customer account"] span', 'Sign in')
-                .should('be.visible')
-                .click();
-            cy.contains('[class="no-account"] a', 'No account? Create one here')
-                .should('be.visible')
-                .click();
-            cy.url()
-                .should('include', 'create_account');
-        })
+  it(
+    "User changes language of the website to Polish and after changes back to English GB " +
+      'by using drop down displayed after clicks button "English GB"',
+    () => {
+      //English GB is default language, on drop down is displayed Polski and English GB
+      // user change language to Polski
+      cy.url().should("include", "gb");
+      cy.get('[class="hidden-sm-down btn-unstyle"] span').as("languageBtn");
+      cy.get("@languageBtn").click();
+      let secondLanguageDropDown = 1;
+      cy.get('[class="dropdown-menu hidden-sm-down"] a')
+        .eq(secondLanguageDropDown)
+        .as("secondLanguageDropDown");
+      cy.get("@secondLanguageDropDown")
+        .should("be.visible")
+        .and("have.text", "English GB");
+      let firstLanguageDropDown = 0;
+      cy.get('[class="dropdown-menu hidden-sm-down"] a')
+        .eq(firstLanguageDropDown)
+        .as("firstLanguageDropDown");
+      cy.get("@firstLanguageDropDown").and("have.text", "Polski").click();
+      cy.url().should("include", "pl");
+      //user changes back lanugage to English GB
+      cy.get("@languageBtn").should("have.text", "Polski").click();
+      cy.get("@secondLanguageDropDown").and("have.text", "English GB").click();
+      cy.url().should("include", "gb");
+    }
+  );
 
-        it('Button "Basket(0)" is displayed. This button is inactive and it doesnt have any product inside.', () => {
-            cy.get('.cart-preview')
-                .should('be.visible')
-                .and('have.class', 'inactive');
-            cy.contains('div[class="header"] span[class="hidden-sm-down"]', 'Basket')
-                .should('be.visible');
-            cy.contains('.cart-products-count', '(0)')
-                .should('be.visible');
-        })
+  it('User clicks button "Sign in".', () => {
+    cy.contains(
+      '[title="Log in to your customer account"] span',
+      "Sign in"
+    ).click();
+    cy.contains(
+      '[class="no-account"] a',
+      "No account? Create one here"
+    ).click();
+    cy.url().should("include", "create_account");
+  });
 
-    it('Button "CLOTHES" is displayed. User mouse-over this button and drop-down with buttons "MEN" and "WOMEN" buttones are displayed. User clicks "MEN" button.', () => {
-        cy.get('#category-3')
-        .realHover()
-        cy.contains('[id="category-5"] a', 'Women')
-            .should('be.visible');
-        cy.contains('[id="category-4"] a', 'Men')
-            .should('be.visible')
-            .realClick();
-        cy.contains('h1', 'Men')
-            .should('be.visible');
-    })
+  it('Button "Basket(0)" is displayed. Its inactive and doesnt have any product inside.', () => {
+    cy.get(".cart-preview").should("be.visible").and("have.class", "inactive");
+    cy.get('div[class="header"] span[class="hidden-sm-down"]')
+      .should("be.visible")
+      .contains("Basket");
+    cy.get(".cart-products-count").should("be.visible").contains("(0)");
+  });
 
-    it('Inputfield "Search our catalog" is displayed. User enters text "sweater" in this inputfield and clicks button with image of loupe.', () => {
-        cy.get('input[aria-label="Search"]')
-            .should('be.visible')
-            .and('have.attr', 'placeholder', 'Search our catalog')
-            .type('sweater');
-        cy.get('button[type="submit"]')
-            .should('be.visible')
-            .realClick();
-        cy.contains('[data-id-product="2"] a', 'Hummingbird printed sweater')
-            .should('be.visible');
-        cy.contains('[class="regular-price"]', '£43.08')
-            .should('be.visible');
-        cy.contains('[class="price"]', '£34.46')
-            .should('be.visible');
-        cy.url()
-            .should('include', 'search')
-            .and('include', 's=sweater');
-    })
+  it('User mouse-over button "CLOTHES" in top menu and clicks "MEN" button from the drop down.', () => {
+    cy.get("#category-3").realHover();
+    cy.get('[id="category-5"] a').should("be.visible").contains("Women");
+    cy.get('[id="category-4"] a')
+      .should("be.visible")
+      .contains("Men")
+      .realClick();
+    cy.get("h1").should("be.visible").contains("Men");
+  });
 
-    it('Banner is displayed. User clicks to check next and previous image on this banner.', () => {
-        cy.get('[class="carousel-inner"]')
-            .should('be.visible');
-        cy.contains('[class="display-1 text-uppercase"]', 'Sample 1')
-            .should('be.visible');
-        cy.get('[class="icon-prev hidden-xs"] i')
-            .should('be.visible')
-            .realClick();
-        cy.get('[class="carousel-inner"]')
-            .should('be.visible');
-        cy.contains('[class="display-1 text-uppercase"]', 'Sample 3')
-            .should('be.visible');
-        cy.get('[class="icon-next"] i')
-            .should('be.visible')
-            .realClick();
-        cy.get('[class="carousel-inner"]')
-            .should('be.visible');
-        cy.contains('[class="display-1 text-uppercase"]', 'Sample 1')
-            .should('be.visible');
-    })
+  it('User enters text "sweater" in inputfield "Search our catalog" and clicks button with image of loupe.', () => {
+    cy.get('input[aria-label="Search"]')
+      .should("have.attr", "placeholder", "Search our catalog")
+      .type("sweater");
+    cy.get('button[type="submit"]').should("be.visible").realClick();
+    cy.get('[data-id-product="2"] a')
+      .should("be.visible")
+      .contains("Hummingbird printed sweater");
+    cy.get('[class="regular-price"]').should("be.visible").contains("£43.08");
+    cy.get('[class="price"]').should("be.visible").contains("£34.46");
+    cy.url().should("include", "search").and("include", "sweater");
+  });
 
-    it('List of popular products is displayed. User clicks product "Hummingbird printed t-shirt" of "white" colour.', () => {
-        cy.contains('[class="h2 products-section-title text-uppercase"]', 'Popular Products')
-            .should('be.visible');
-        cy.contains('[data-id-product=1] a', 'Hummingbird printed t-shirt')
-            .should('be.visible');
-        cy.contains('[data-id-product=1] [class="product-flag discount"]', '-20%')
-            .should('be.visible');
-        cy.contains('[data-id-product=1] [class="product-flag new"]', 'New')
-            .should('be.visible');
-        cy.contains('[data-id-product=1] [class="regular-price"]', '£28.68')
-            .should('be.visible');
-        cy.contains('[data-id-product=1] [class="price"]', '£22.94')
-            .should('be.visible');
-        cy.get('[data-id-product=1] h3')
-            .realHover();
-        cy.get('[class="highlighted-informations hidden-sm-down"] [title="White"]')
-            .should('be.visible')
-            .click();
-        cy.contains('h1', 'Hummingbird printed t-shirt')
-            .should('be.visible');
-        cy.url()
-            .should('include', 'hummingbird-printed-t-shirt')
-            .and('include', 'size-s')
-            .and('include', 'colour-white');
-    })
+  it("User clicks to check next and previous image on this banner.", () => {
+    cy.get('[class="carousel-inner"]').should("be.visible");
+    cy.get('[class="display-1 text-uppercase"]')
+      .should("be.visible")
+      .contains("Sample 1");
+    cy.get('[class="icon-prev hidden-xs"] i').should("be.visible").realClick();
+    cy.get('[class="carousel-inner"]').should("be.visible");
+    cy.get('[class="display-1 text-uppercase"]')
+      .should("be.visible")
+      .contains("Sample 3");
+    cy.get('[class="icon-next"] i').should("be.visible").realClick();
+    cy.get('[class="carousel-inner"]').should("be.visible");
+    cy.get('[class="display-1 text-uppercase"]')
+      .should("be.visible")
+      .contains("Sample 1");
+  });
 
-    it('Button "All products" is displayed. User clicks this button.', () => {
-        cy.contains('[class="featured-products clearfix"] a', 'All products')
-            .should('be.visible')
-            .click();
-        cy.contains('h1', 'Home')
-            .should('be.visible');
-        cy.url()
-            .should('include', 'home');
-    })
+  it('User clicks the button "All products".', () => {
+    cy.contains(
+      '[class="featured-products clearfix"] a',
+      "All products"
+    ).click();
+    cy.get("h1").should("be.visible").contains("Home");
+    cy.url().should("include", "home");
+  });
 
-    it('Inputfield "Your email address" is displayed. User enters already used e-mail in this inputfield.', () => {
-        cy.get('[name="email"]').invoke('attr', 'placeholder')
-            .should('contain', 'Your email address');
-        cy.get('[name="email"]')
-            .should('be.visible')
-            .type("test@test.com");
-        cy.get('[value="Subscribe"]')
-            .should('be.visible')
-            .click();
-        cy.contains('[class="alert alert-danger block_newsletter_alert"]', 'This email address is already registered.')
-            .should('be.visible');
-    })
-})
+  it("User tries subscribe newsletter by already used e-mail", () => {
+    cy.get('[name="email"]').type("test@test.com");
+    cy.get('[value="Subscribe"]').click();
+    cy.get('[class="alert alert-danger block_newsletter_alert"]')
+      .should("be.visible")
+      .contains("This email address is already registered.");
+  });
+
+  it(
+    "Requests check if buttons in navigation bar have correct links" +
+      "and return correct status response",
+    () => {
+      const pages = new Map();
+      pages.set("gb/3-clothes", ['[id="category-3"] [data-depth="0"]']);
+      pages.set("gb/4-men", ['[id="category-4"] [data-depth="1"]']);
+      pages.set("gb/5-women", ['[id="category-5"] [data-depth="1"]']);
+      pages.set("gb/6-accessories", ['[id="category-6"] [data-depth="0"]']);
+      pages.set("gb/7-stationery", ['[id="category-7"] [data-depth="1"]']);
+      pages.set("gb/8-home-accessories", [
+        '[id="category-8"] [data-depth="1"]',
+      ]);
+      pages.set("gb/9-art", ['[id="category-9"] [data-depth="0"]']);
+
+      for (const [url, selectors] of pages.entries()) {
+        selectors.forEach((selector) => {
+          cy.get(selector)
+            .as("selector")
+            .should("have.attr", "href")
+            .and("include", url);
+          cy.get("@selector").then((link) => {
+            cy.request(link.prop("href"));
+          });
+        });
+      }
+    }
+  );
+
+  it(
+    "Requests check if popular products have correct links " +
+      "and return correct status response",
+    () => {
+      const pages = new Map();
+      pages.set(
+        "gb/men/1-1-hummingbird-printed-t-shirt.html#/1-size-s/8-colour-white",
+        [
+          '[data-id-product="1"] [class="thumbnail product-thumbnail"]',
+          '[data-id-product="1"] [itemprop="url"]',
+        ]
+      );
+      pages.set(
+        "prestashop/gb/women/2-9-brown-bear-printed-sweater.html#/1-size-s",
+        [
+          '[data-id-product="2"] [class="thumbnail product-thumbnail"]',
+          '[data-id-product="2"] [itemprop="url"]',
+        ]
+      );
+      pages.set(
+        "gb/art/3-13-the-best-is-yet-to-come-framed-poster.html#/19-dimension-40x60cm",
+        [
+          '[data-id-product="3"] [class="thumbnail product-thumbnail"]',
+          '[data-id-product="3"] [itemprop="url"]',
+        ]
+      );
+      pages.set(
+        "gb/art/4-16-the-adventure-begins-framed-poster.html#/19-dimension-40x60cm",
+        [
+          '[data-id-product="4"] [class="thumbnail product-thumbnail"]',
+          '[data-id-product="4"] [itemprop="url"]',
+        ]
+      );
+      pages.set(
+        "gb/art/5-19-today-is-a-good-day-framed-poster.html#/19-dimension-40x60cm",
+        [
+          '[data-id-product="5"] [class="thumbnail product-thumbnail"]',
+          '[data-id-product="5"] [itemprop="url"]',
+        ]
+      );
+      pages.set("gb/home-accessories/6-mug-the-best-is-yet-to-come.html", [
+        '[data-id-product="6"] [class="thumbnail product-thumbnail"]',
+        '[data-id-product="6"] [itemprop="url"]',
+      ]);
+      pages.set("gb/home-accessories/7-mug-the-adventure-begins.html", [
+        '[data-id-product="7"] [class="thumbnail product-thumbnail"]',
+        '[data-id-product="7"] [itemprop="url"]',
+      ]);
+      pages.set("gb/home-accessories/8-mug-today-is-a-good-day.html", [
+        '[data-id-product="8"] [class="thumbnail product-thumbnail"]',
+        '[data-id-product="8"] [itemprop="url"]',
+      ]);
+
+      for (const [url, selectors] of pages.entries()) {
+        selectors.forEach((selector) => {
+          cy.get(selector)
+            .as("selector")
+            .should("have.attr", "href")
+            .and("include", url);
+          cy.get("@selector").click().go("back");
+          cy.get("@selector").then((link) => {
+            cy.request(link.prop("href"));
+          });
+        });
+      }
+    }
+  );
+});
