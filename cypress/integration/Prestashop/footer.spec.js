@@ -8,7 +8,6 @@ describe("Footer: ", () => {
     cy.visit("/gb/");
   });
 
-  //useless
   it(
     'User clicks button "New products" on the "Prices drop" subpage. ' +
       'After user clicks button "Sign in".',
@@ -21,12 +20,12 @@ describe("Footer: ", () => {
       cy.get('[id="js-product-list-header"]')
         .should("be.visible")
         .contains("New products");
-      cy.get("h4")
-        .should("be.visible")
-        .contains("Sorry for the inconvenience.");
+      cy.get("h4").should("be.visible").contains("No products available yet");
       cy.get('[id="content"] p')
         .should("be.visible")
-        .contains("Search again what you are looking for");
+        .contains(
+          "Stay tuned! More products will be shown here as they are added."
+        );
       let searchCategoryInput = 1;
       cy.get('[aria-label="Search"]')
         .eq(searchCategoryInput)
@@ -45,7 +44,6 @@ describe("Footer: ", () => {
     }
   );
 
-  //useless
   it(
     'User clicks button "Best sales" on the "New products" subpage. ' +
       'After user clicks button "Contact us".',
@@ -63,20 +61,19 @@ describe("Footer: ", () => {
         .contains("Best sellers");
       cy.get('[id="content"] h4')
         .should("be.visible")
-        .contains("Sorry for the inconvenience.");
+        .contains("No products available yet");
       cy.get('[type="email"]')
         .should("be.visible")
         .and("have.attr", "placeholder", "Your email address");
       cy.url().should("include", "best-sales");
       cy.contains('[id="contact-link"] a', "Contact us").click();
-      cy.get('[name="id_contact"] [value="2"]')
+      cy.get('[id="contactform-message"] ')
         .should("be.visible")
-        .contains("Customer service");
+        .and("have.attr", "placeholder", "How can we help?");
       cy.url().should("include", "contact-us");
     }
   );
 
-  //useless
   it(
     'User clicks button "Delivery" on the "Login in" subpage. ' +
       'After user clicks button "Art".',
@@ -96,7 +93,6 @@ describe("Footer: ", () => {
     }
   );
 
-  //useless
   it(
     'User clicks button "Legal Notice" on the "Create an account" subpage. ' +
       'After user clicks button "Accessories".',
@@ -114,7 +110,6 @@ describe("Footer: ", () => {
     }
   );
 
-  //useless
   it(
     'User clicks button "Terms and conditions of use" on the "Acessories" subpage. ' +
       'After user clicks button "Home Accessories".',
@@ -140,69 +135,6 @@ describe("Footer: ", () => {
         .and("be.visible")
         .realClick();
       cy.url().should("include", "home-accessories");
-    }
-  );
-
-  it("Check if footer categories have correct names", () => {
-    const pages = new Map();
-    pages.set("Prices drop", ['[id="link-product-page-prices-drop-1"]']);
-    pages.set("New products", ['[id="link-product-page-new-products-1"]']);
-    pages.set("Best sales", ['[id="link-product-page-best-sales-1"]']);
-    pages.set("Delivery", ['[id="link-cms-page-1-2"]']);
-    pages.set("Legal Notice", ['[id="link-cms-page-2-2"]']);
-    pages.set("Terms and conditions of use", ['[id="link-cms-page-3-2"]']);
-    pages.set("About us", ['[id="link-cms-page-4-2"]']);
-    pages.set("Secure payment", ['[id="link-cms-page-5-2"]']);
-    pages.set("Contact us", ['[id="link-static-page-contact-2"]']);
-    pages.set("Sitemap", ['[id="link-static-page-sitemap-2"]']);
-    pages.set("Stores", ['[id="link-static-page-stores-2"]']);
-    pages.set("Personal info", ['[title="Personal info"]']);
-    pages.set("Orders", ['[title="Orders"]']);
-    pages.set("Credit notes", ['[title="Credit notes"]']);
-    pages.set("Addresses", ['[title="Addresses"]']);
-
-    for (const [name, selectors] of pages.entries()) {
-      selectors.forEach((selector) => {
-        cy.get(selector).should("be.visible").and("contain", name);
-      });
-    }
-  });
-
-  it(
-    "Requests check if footer categories have correct links " +
-      "and return correct status response",
-    () => {
-      const pages = new Map();
-      pages.set("gb/prices-drop", ['[id="link-product-page-prices-drop-1"]']);
-      pages.set("gb/new-products", ['[id="link-product-page-new-products-1"]']);
-      pages.set("gb/best-sales", ['[id="link-product-page-best-sales-1"]']);
-      pages.set("gb/content/1-delivery", ['[id="link-cms-page-1-2"]']);
-      pages.set("gb/content/2-legal-notice", ['[id="link-cms-page-2-2"]']);
-      pages.set("gb/content/3-terms-and-conditions-of-use", [
-        '[id="link-cms-page-3-2"]',
-      ]);
-      pages.set("gb/content/4-about-us", ['[id="link-cms-page-4-2"]']);
-      pages.set("gb/content/5-secure-payment", ['[id="link-cms-page-5-2"]']);
-      pages.set("gb/contact-us", ['[id="link-static-page-contact-2"]']);
-      pages.set("gb/sitemap", ['[id="link-static-page-sitemap-2"]']);
-      pages.set("gb/stores", ['[id="link-static-page-stores-2"]']);
-      pages.set("gb/identity", ['[title="Personal info"]']);
-      pages.set("gb/order-history", ['[title="Orders"]']);
-      pages.set("gb/credit-slip", ['[title="Credit notes"]']);
-      pages.set("gb/addresses", ['[title="Addresses"]']);
-
-      for (const [url, selectors] of pages.entries()) {
-        selectors.forEach((selector) => {
-          cy.get(selector)
-            .as("selector")
-            .should("have.attr", "href")
-            .and("include", url);
-          cy.get("@selector").click().go("back");
-          cy.get("@selector").then((link) => {
-            cy.request(link.prop("href"));
-          });
-        });
-      }
     }
   );
 });

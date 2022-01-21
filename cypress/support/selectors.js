@@ -22,7 +22,6 @@ export var navigation = {
   homeAccessoriesBtn: '[id="category-8"] [data-depth="1"]',
   artBtn: '[id="category-9"] [data-depth="0"]',
   searchInput: 'input[aria-label="Search"]',
-  searchSubmitBtn: 'button[type="submit"]',
 };
 
 export var banner = {
