@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, stage ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, stage ]
 
 jobs:
   test-prestashop:
@@ -30,4 +30,4 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run cypress:run --env host=http://automationtesting.info/gb/
+    - run: npm run cypress:run --env host=http://automationtesting.info
