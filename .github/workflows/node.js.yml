@@ -31,7 +31,8 @@ jobs:
           npm ci
           npm run cypress:run --env host=http://automationtesting.info
       - name: Archive code coverage results
+        if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: test-result-screenshot
+          name: test-result-screenshots
           path: cypress/screenshots
