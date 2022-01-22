@@ -27,5 +27,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - run: npm ci
-      - run: npm run cypress:run --env host=http://automationtesting.info
+      - run: | 
+          npm ci
+          npm run cypress:run --env host=http://automationtesting.info
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v2 
+        with:
+          name: test-result
+          path: /home/runner/work/Prestashop-Cypress/Prestashop-Cypress/cypress/videos/ 
+
+
+
