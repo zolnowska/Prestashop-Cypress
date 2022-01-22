@@ -5,29 +5,33 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main, stage ]
+    branches: [main, stage]
   pull_request:
-    branches: [ main, stage ]
+    branches: [main, stage]
 
 jobs:
   test-prestashop:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-      with:
-        ref:
-          ${{ github.ref }}
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run cypress:run --env host=http://automationtesting.info
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: |
+          npm ci
+          npm run cypress:run --env host=http://automationtesting.info
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-result-screenshot
+          path: cypress/screenshots
