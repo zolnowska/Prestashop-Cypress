@@ -33,8 +33,13 @@ jobs:
       - name: Archive code coverage results
         uses: actions/upload-artifact@v2 
         with:
-          name: test-result
-          path: /home/runner/work/Prestashop-Cypress/Prestashop-Cypress/cypress/videos/ 
+          name: test-result-video
+          path: /home/runner/work/Prestashop-Cypress/Prestashop-Cypress/cypress/videos/
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v2 
+        with:
+          name: test-result-screenshot
+          path: /home/runner/work/Prestashop-Cypress/Prestashop-Cypress/cypress/screenshots/
 
 
 
