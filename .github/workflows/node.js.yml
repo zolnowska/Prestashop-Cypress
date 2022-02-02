@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [main, stage, experimental]
+    branches: [main, stage, dev]
   pull_request:
-    branches: [main, stage, experimental]
+    branches: [main, stage, dev]
 
 jobs:
   test-prestashop:
