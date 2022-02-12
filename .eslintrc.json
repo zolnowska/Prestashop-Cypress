@@ -21,15 +21,18 @@
     "prettier/prettier": [
       "error",
       {
-        "endOfLine": "auto",
+        "endOfLine": "auto"
       }
-    ],
-    "newline-per-chained-call": [
+    ]
+    //Rules to accept, 1 chain method per line by ESLinter
+    //but Prettier doesn't support it breaking chain method
+     
+    /*"newline-per-chained-call": [
       "error",
       {
-        "ignoreChainWithDepth": 2,
+        "ignoreChainWithDepth": 1
       }
-    ],
+    ]*/
   },
   "plugins": ["cypress"]
 }
