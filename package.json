@@ -14,12 +14,23 @@
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.3",
     "prettier": "2.5.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "cross-env FORCE_COLOR=1 lint-staged"
+    }
   },
   "scripts": {
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "prepare": "husky install"
   },
   "author": "Sabina Zolnowska",
-  "license": "ISC"
+  "license": "ISC",
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
+  }
 }
